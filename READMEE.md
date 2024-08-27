@@ -189,8 +189,9 @@ Optional<Product> productToBuy = productRepository.findById(theId);
     }
     }
     }
-
+```
 created the purchase success html document "confirmbuysuccess.html"
+```html
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -203,8 +204,9 @@ created the purchase success html document "confirmbuysuccess.html"
         to Main Screen</a>
     </body>
     </html>
-
+```
 Created the purchase failure html document "confirmbuyfailure.html"
+```html
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -218,3 +220,4 @@ Created the purchase failure html document "confirmbuyfailure.html"
     </body>
     </html>
 ```
+
