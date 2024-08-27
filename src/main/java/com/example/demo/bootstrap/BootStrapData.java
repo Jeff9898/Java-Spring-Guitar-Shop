@@ -1,8 +1,10 @@
 package com.example.demo.bootstrap;
 
+import com.example.demo.domain.InhousePart;
 import com.example.demo.domain.OutsourcedPart;
 import com.example.demo.domain.Part;
 import com.example.demo.domain.Product;
+import com.example.demo.repositories.InhousePartRepository;
 import com.example.demo.repositories.OutsourcedPartRepository;
 import com.example.demo.repositories.PartRepository;
 import com.example.demo.repositories.ProductRepository;
@@ -29,11 +31,13 @@ public class BootStrapData implements CommandLineRunner {
     private final ProductRepository productRepository;
 
     private final OutsourcedPartRepository outsourcedPartRepository;
+    private final InhousePartRepository inhousePartRepository;
 
-    public BootStrapData(PartRepository partRepository, ProductRepository productRepository, OutsourcedPartRepository outsourcedPartRepository) {
+    public BootStrapData(PartRepository partRepository, ProductRepository productRepository, OutsourcedPartRepository outsourcedPartRepository, InhousePartRepository inhousePartRepository) {
         this.partRepository = partRepository;
         this.productRepository = productRepository;
         this.outsourcedPartRepository=outsourcedPartRepository;
+        this.inhousePartRepository = inhousePartRepository;
     }
 
     @Override
@@ -67,11 +71,111 @@ public class BootStrapData implements CommandLineRunner {
         productRepository.save(unicycle);
         */
 
+
+
+        if (partRepository.count() == 0) {
+
+            InhousePart strap = new InhousePart();
+            strap.setName("Shoulder Strap");
+            strap.setPrice(19.99);
+            strap.setInv(26);
+
+
+            InhousePart plate = new InhousePart();
+            plate.setName("Back Plate");
+            plate.setPrice(39.99);
+            plate.setInv(9);
+
+
+            InhousePart guard = new InhousePart();
+            guard.setName("Pickguard");
+            guard.setPrice(49.99);
+            guard.setInv(18);
+
+
+            InhousePart strings = new InhousePart();
+            strings.setName("Guitar Strings");
+            strings.setPrice(59.99);
+            strings.setInv(7);
+
+
+            InhousePart bridge = new InhousePart();
+            bridge.setName("Guitar Bridge");
+            bridge.setPrice(42.99);
+            bridge.setInv(10);
+
+
+            partRepository.save(strap);
+            partRepository.save(plate);
+            partRepository.save(guard);
+            partRepository.save(strings);
+            partRepository.save(bridge);
+    }
+
+        if (outsourcedPartRepository.count() == 0) {
+
+            OutsourcedPart knobs = new OutsourcedPart();
+            knobs.setName("Guitar Knobs");
+            knobs.setPrice(16.99);
+            knobs.setInv(7);
+            knobs.setCompanyName("Guitars-R-Us");
+
+            OutsourcedPart capo = new OutsourcedPart();
+            capo.setName("Capo");
+            capo.setPrice(9.99);
+            capo.setInv(9);
+            capo.setCompanyName("Guitar Land");
+
+            OutsourcedPart head = new OutsourcedPart();
+            head.setName("Guitar Head");
+            head.setPrice(45.99);
+            head.setInv(13);
+            head.setCompanyName("Guitar Center");
+
+            OutsourcedPart neck = new OutsourcedPart();
+            neck.setName("Guitar Neck");
+            neck.setPrice(22.99);
+            neck.setInv(8);
+            neck.setCompanyName("Guitar Shack");
+
+            OutsourcedPart springs = new OutsourcedPart();
+            springs.setName("Guitar Springs");
+            springs.setPrice(19.99);
+            springs.setInv(11);
+            springs.setCompanyName("Guitar World");
+
+            outsourcedPartRepository.save(knobs);
+            outsourcedPartRepository.save(capo);
+            outsourcedPartRepository.save(head);
+            outsourcedPartRepository.save(neck);
+            outsourcedPartRepository.save(springs);
+
+        }
+
+            if (productRepository.count() == 0) {
+
+                Product electricGuitar = new Product("Electric Guitar", 199.99, 28);
+                Product acousticGuitar = new Product("Acoustic Guitar", 159.99, 18);
+                Product miniGuitar = new Product("Mini Guitar", 99.99, 8);
+                Product bassGuitar = new Product("Bass Guitar", 149.99, 5);
+                Product jazzGuitar = new Product("Jazz Guitar", 179.99, 7);
+
+                productRepository.save(electricGuitar);
+                productRepository.save(acousticGuitar);
+                productRepository.save(miniGuitar);
+                productRepository.save(bassGuitar);
+                productRepository.save(jazzGuitar);
+
+            }
+
+
+
         System.out.println("Started in Bootstrap");
         System.out.println("Number of Products"+productRepository.count());
         System.out.println(productRepository.findAll());
         System.out.println("Number of Parts"+partRepository.count());
         System.out.println(partRepository.findAll());
+
 
     }
 }
