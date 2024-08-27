@@ -138,4 +138,83 @@ line 76 - 169
 
             }
 ```
+Part F:
+```html
+Added to "buy now" button to mainscreen.html line 85
+<a th:href="@{/buyProduct(productID=${tempProduct.id})}" class="btn btn-primary btn-sm mb-3">Buy Now</a>
 
+Created BuyProductController to check if the selected item is instock or not. They will then  
+be redirected to a purchase success or failure page.
+package com.example.demo.controllers;
+
+import com.example.demo.domain.Part;
+import com.example.demo.domain.Product;
+import com.example.demo.repositories.ProductRepository;
+import com.example.demo.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
+
+@Controller
+public class BuyProductController {
+@Autowired
+private ProductRepository productRepository;
+
+@GetMapping("/buyProduct")
+public String buyProduct(@RequestParam("productID") Long theId, Model theModel) {
+Optional<Product> productToBuy = productRepository.findById(theId);
+
+    if (productToBuy.isPresent()) {    //check if product in catalog
+    Product product = productToBuy.get();
+
+    if (product.getInv() > 0) {    //check if product still in stock
+    product.setInv(product.getInv() - 1);   //decrement stock
+    productRepository.save(product);    //save to product database
+
+    return "/confirmbuysuccess";   //successful purchase
+    } else {
+    return "/confirmbuyfailure";   //purchase failed: out of stock
+    }
+    } else {
+    return "/confirmbuyfailure";  //purchase failed: product not found
+    }
+    }
+    }
+
+created the purchase success html document "confirmbuysuccess.html"
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Purchase Success</title>
+    </head>
+    <body>
+    <h1>Congratulations, your purchase was successful!</h1>
+    <a href="http://localhost:8080/">Link
+        to Main Screen</a>
+    </body>
+    </html>
+
+Created the purchase failure html document "confirmbuyfailure.html"
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Purchase Failed</title>
+    </head>
+    <body>
+    <h1>There was a problem with your purchase. Please contact customer support.</h1>
+    <a href="http://localhost:8080/">Link
+        to Main Screen</a>
+    </body>
+    </html>
+```

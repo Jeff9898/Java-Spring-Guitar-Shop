@@ -63,15 +63,15 @@ public class BootStrapData implements CommandLineRunner {
         for(OutsourcedPart part:outsourcedParts){
             System.out.println(part.getName()+" "+part.getCompanyName());
         }
-
         /*
         Product bicycle= new Product("bicycle",100.0,15);
         Product unicycle= new Product("unicycle",100.0,15);
         productRepository.save(bicycle);
         productRepository.save(unicycle);
         */
-
-
+//partRepository.deleteAll();
+//productRepository.deleteAll();
+//outsourcedPartRepository.deleteAll();
 
         if (partRepository.count() == 0) {
 

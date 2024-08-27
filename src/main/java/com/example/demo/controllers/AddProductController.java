@@ -173,4 +173,6 @@ public class AddProductController {
         theModel.addAttribute("availparts",availParts);
         return "productForm";
     }
+
+
 }
