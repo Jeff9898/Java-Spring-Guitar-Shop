@@ -76,48 +76,32 @@ public class BootStrapData implements CommandLineRunner {
         if (partRepository.count() == 0) {
 
             InhousePart strap = new InhousePart();
+            strap.setId(1);
             strap.setName("Shoulder Strap");
             strap.setPrice(19.99);
             strap.setInv(26);
             strap.setMinimum(1);
-            strap.setMaximum(100);
-
-
-            InhousePart plate = new InhousePart();
-            plate.setName("Back Plate");
-            plate.setPrice(39.99);
-            plate.setInv(9);
-            plate.setMinimum(1);
-            plate.setMaximum(100);
-
-
-            InhousePart guard = new InhousePart();
-            guard.setName("Pickguard");
-            guard.setPrice(49.99);
-            guard.setInv(18);
-            guard.setMinimum(1);
-            guard.setMaximum(100);
+            strap.setMaximum(50);
 
 
             InhousePart strings = new InhousePart();
+            strings.setId(2);
             strings.setName("Guitar Strings");
             strings.setPrice(59.99);
             strings.setInv(7);
             strings.setMinimum(1);
-            strings.setMaximum(100);
+            strings.setMaximum(65);
 
 
             InhousePart bridge = new InhousePart();
+            bridge.setId(3);
             bridge.setName("Guitar Bridge");
             bridge.setPrice(42.99);
             bridge.setInv(10);
             bridge.setMinimum(1);
-            bridge.setMaximum(100);
-
+            bridge.setMaximum(40);
 
             partRepository.save(strap);
-            partRepository.save(plate);
-            partRepository.save(guard);
             partRepository.save(strings);
             partRepository.save(bridge);
     }
@@ -130,7 +114,7 @@ public class BootStrapData implements CommandLineRunner {
             knobs.setInv(7);
             knobs.setCompanyName("Guitars-R-Us");
             knobs.setMinimum(1);
-            knobs.setMaximum(100);
+            knobs.setMaximum(80);
 
             OutsourcedPart capo = new OutsourcedPart();
             capo.setName("Capo");
@@ -138,37 +122,11 @@ public class BootStrapData implements CommandLineRunner {
             capo.setInv(9);
             capo.setCompanyName("Guitar Land");
             capo.setMinimum(1);
-            capo.setMaximum(100);
-
-            OutsourcedPart head = new OutsourcedPart();
-            head.setName("Guitar Head");
-            head.setPrice(45.99);
-            head.setInv(13);
-            head.setCompanyName("Guitar Center");
-            head.setMinimum(1);
-            head.setMaximum(100);
-
-            OutsourcedPart neck = new OutsourcedPart();
-            neck.setName("Guitar Neck");
-            neck.setPrice(22.99);
-            neck.setInv(8);
-            neck.setCompanyName("Guitar Shack");
-            neck.setMinimum(1);
-            neck.setMaximum(100);
-
-            OutsourcedPart springs = new OutsourcedPart();
-            springs.setName("Guitar Springs");
-            springs.setPrice(19.99);
-            springs.setInv(11);
-            springs.setCompanyName("Guitar World");
-            springs.setMinimum(1);
-            springs.setMaximum(100);
+            capo.setMaximum(25);
 
             outsourcedPartRepository.save(knobs);
             outsourcedPartRepository.save(capo);
-            outsourcedPartRepository.save(head);
-            outsourcedPartRepository.save(neck);
-            outsourcedPartRepository.save(springs);
+
 
         }
 

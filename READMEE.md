@@ -221,3 +221,68 @@ Created the purchase failure html document "confirmbuyfailure.html"
     </html>
 ```
 
+Part G:
+Changed Part.java to track maximum and minimum inventory
+```html
+    @Min (value = 0, message = "Minimum inventory must be > 0")
+    int minimum;
+    int maximum;
+
+
+Added to the constructors
+this.minimum = 0;
+this.maximum = 100;
+
+
+public void setMinimum(int minimum) { this.minimum = minimum; }
+public int getMinimum() { return this.minimum; }
+
+public void setMaximum(int maximum) { this.maximum = maximum; }
+public int getMaximum() { return this.maximum; }
+```
+```html
+inhousepart.java
+
+public InhousePart() {
+this.minimum = 0;
+this.maximum = 100;
+}
+
+
+outsourcepart.java
+
+public OutsourcedPart() {
+this.minimum = 0;
+this.maximum = 100;
+}
+```
+```html
+mainscreen.html
+<th>Minimum</th>
+<th>Maximum</th>
+
+<td th:text="${tempPart.minimum}">1</td>
+<td th:text="${tempPart.maximum}">1</td>
+```
+
+```html
+inhousepartform.html and outsourcepartform.html
+<p><input type="text" th:field="*{minimum}" placeholder="Minimum" class="form-control mb-4 col-4"/></p>
+
+<p><input type="text" th:field="*{maximum}" placeholder="Maximum" class="form-control mb-4 col-4"/></p>
+```
+
+I renamed the file persistent storage is saved to and ended up changing it back later on
+
+```html
+part.java
+public void validateLimits() {
+if (this.inv < this.minimum) {
+this.inv = this.minimum;
+} else if (this.inv > this.maximum ) {
+this.inv = this.maximum;
+}
+}
+
+this validator is added to InhousePartServiceImpl.java and OutsourcedPartServiceImpl.java
+```
