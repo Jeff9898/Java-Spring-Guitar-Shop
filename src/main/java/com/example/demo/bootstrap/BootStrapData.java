@@ -109,6 +109,7 @@ public class BootStrapData implements CommandLineRunner {
         if (outsourcedPartRepository.count() == 0) {
 
             OutsourcedPart knobs = new OutsourcedPart();
+            knobs.setId(4);
             knobs.setName("Guitar Knobs");
             knobs.setPrice(16.99);
             knobs.setInv(7);
@@ -117,6 +118,7 @@ public class BootStrapData implements CommandLineRunner {
             knobs.setMaximum(80);
 
             OutsourcedPart capo = new OutsourcedPart();
+            capo.setId(5);
             capo.setName("Capo");
             capo.setPrice(9.99);
             capo.setInv(9);

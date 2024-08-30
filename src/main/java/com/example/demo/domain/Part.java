@@ -98,6 +98,15 @@ public abstract class Part implements Serializable {
         }
     }
 
+    public boolean isInvValid(){
+        if (inv >= minimum && inv <= maximum){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public Set<Product> getProducts() {
         return products;
     }
