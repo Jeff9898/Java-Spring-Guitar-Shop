@@ -339,3 +339,25 @@ return true;
 }
 ```
 
+Part I: Add at least two unit tests for the maximum and minimum fields to the PartTest class in the test package.
+```html
+partTest.java
+lines 160 - 176
+@Test
+public void testMinimumInventory() {
+int min_inv=1;
+partIn.setInv(min_inv);
+assertEquals(min_inv,partIn.getInv());
+partOut.setInv(min_inv);
+assertEquals(min_inv,partOut.getInv());
+}
+
+@Test
+public void testMaximumInventory() {
+int max_inv=101;
+partIn.setInv(max_inv);
+assertEquals(max_inv,partIn.getInv());
+partOut.setInv(max_inv);
+assertEquals(max_inv,partOut.getInv());
+}
+```
