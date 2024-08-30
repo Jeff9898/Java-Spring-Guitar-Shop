@@ -90,14 +90,6 @@ public abstract class Part implements Serializable {
         this.inv = inv;
     }
 
-    public void validateLimits() {
-        if (this.inv < this.minimum) {
-            this.inv = this.minimum;
-        } else if (this.inv > this.maximum ) {
-            this.inv = this.maximum;
-        }
-    }
-
     public boolean isInvValid(){
         if (inv >= minimum && inv <= maximum){
             return true;

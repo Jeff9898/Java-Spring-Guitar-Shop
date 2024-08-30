@@ -1,4 +1,7 @@
-Part C: I customized the mainscreen.html file on line 14 and line 19 to display  
+Part C: Customize the HTML user interface for your customer’s application. The user interface should include   
+the shop name, the product names, and the names of the parts.
+
+I customized the mainscreen.html file on line 14 and line 19 to display  
 the name of the shop "Jeff's Guitar Shop".
 ```html
 mainscreen.html 
@@ -8,7 +11,10 @@ line 19: <h1>Jeff's Guitar Shop</h1>
 ```
 
 
- Part D: created about.html  
+ Part D: Add an “About” page to the application to describe your chosen customer’s company to web viewers and include navigation 
+ to and from the “About” page and the main screen.
+ 
+created about.html  
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +46,10 @@ return "about";
 }
 ```
 
-Part E: Added inventory to BootStrapData only when lists are empty
+Part E: Add a sample inventory appropriate for your chosen store to the application. You should have five parts and five 
+products in your sample inventory and should not overwrite existing data in the database.
+
+Added inventory to BootStrapData only when lists are empty
 ```html
 line 76 - 169
        if (partRepository.count() == 0) {
@@ -138,7 +147,11 @@ line 76 - 169
 
             }
 ```
-Part F:
+Part F:  Add a “Buy Now” button to your product list. Your “Buy Now” button must meet each of the following parameters:
+•  The “Buy Now” button must be next to the buttons that update and delete products.
+•  The button should decrement the inventory of that product by one. It should not affect the inventory of any of the associated parts.
+•  Display a message that indicates the success or failure of a purchase.
+
 ```html
 Added to "buy now" button to mainscreen.html line 85
 <a th:href="@{/buyProduct(productID=${tempProduct.id})}" class="btn btn-primary btn-sm mb-3">Buy Now</a>
@@ -221,7 +234,13 @@ Created the purchase failure html document "confirmbuyfailure.html"
     </html>
 ```
 
-Part G:
+Part G: Modify the parts to track maximum and minimum inventory by doing the following:
+•  Add additional fields to the part entity for maximum and minimum inventory.
+•  Modify the sample inventory to include the maximum and minimum fields.
+•  Add to the InhousePartForm and OutsourcedPartForm forms additional text inputs for the inventory so the user can set the maximum and minimum values.
+•  Rename the file the persistent storage is saved to.
+•  Modify the code to enforce that the inventory is between or at the minimum and maximum value.
+
 Changed Part.java to track maximum and minimum inventory
 ```html
     @Min (value = 0, message = "Minimum inventory must be > 0")
@@ -267,22 +286,56 @@ mainscreen.html
 
 ```html
 inhousepartform.html and outsourcepartform.html
-<p><input type="text" th:field="*{minimum}" placeholder="Minimum" class="form-control mb-4 col-4"/></p>
-
-<p><input type="text" th:field="*{maximum}" placeholder="Maximum" class="form-control mb-4 col-4"/></p>
+lines 24 and 25
+<p><input type="text" path="minimum" th:field="*{minimum}" placeholder="Minimum Inventory" class="form-control mb-4 col-4"/></p>
+<p><input type="text" path="maximum" th:field="*{maximum}" placeholder="Maximum Inventory" class="form-control mb-4 col-4"/></p>
 ```
 
-I renamed the file persistent storage is saved to and ended up changing it back later on
+I renamed the file persistent storage is saved to jdbc:h2:file:~/spring-boot-h2-h2-db102
+
+
+Part H: Add validation for between or at the maximum and minimum fields. The validation must include the following:
+•  Display error messages for low inventory when adding and updating parts if the inventory is less than the minimum number of parts.
+•  Display error messages for low inventory when adding and updating products lowers the part inventory below the minimum.
+•  Display error messages when adding and updating parts if the inventory is greater than the maximum.
 
 ```html
 part.java
-public void validateLimits() {
-if (this.inv < this.minimum) {
-this.inv = this.minimum;
-} else if (this.inv > this.maximum ) {
-this.inv = this.maximum;
+line 93 - 100
+public boolean isInvValid(){
+if (inv >= minimum && inv <= maximum){
+return true;
+}
+else {
+return false;
 }
 }
-
-this validator is added to InhousePartServiceImpl.java and OutsourcedPartServiceImpl.java
 ```
+```html
+addoutsourcedpartcontroller and addinhousepartcontroller
+lines 41-49
+        if (!part.isInvValid()) {
+            if(part.getInv() < part.getMinimum()) {
+                bindingResult.rejectValue("inv", "error.outsourcedpart", "Inventory value is below the minimum");
+            }
+            else{
+                bindingResult.rejectValue("inv", "error.outsourcedpart", "Inventory value is above the maximum");
+            }
+        }
+```
+
+```html
+enufpartsvalidator
+lines 35-44
+for (Part p : myProduct.getParts()) {
+if (p.getInv() - 1 < p.getMinimum()) {
+return false;
+}
+}
+return true;
+}
+else{
+return true;
+}
+```
+
