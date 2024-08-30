@@ -361,3 +361,7 @@ partOut.setInv(max_inv);
 assertEquals(max_inv,partOut.getInv());
 }
 ```
+
+Part J: Remove the class files for any unused validators in order to clean your code.
+
+I deleted the DeletePartValidator as intelliJ informed there were no usages for it.
