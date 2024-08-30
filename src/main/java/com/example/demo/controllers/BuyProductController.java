@@ -26,19 +26,19 @@ public class BuyProductController {
     public String buyProduct(@RequestParam("productID") Long theId, Model theModel) {
         Optional<Product> productToBuy = productRepository.findById(theId);
 
-        if (productToBuy.isPresent()) {    //check if product in catalog
+        if (productToBuy.isPresent()) {
             Product product = productToBuy.get();
 
-            if (product.getInv() > 0) {    //check if product still in stock
-                product.setInv(product.getInv() - 1);   //decrement stock
-                productRepository.save(product);    //save to product database
+            if (product.getInv() > 0) {
+                product.setInv(product.getInv() - 1);
+                productRepository.save(product);
 
-                return "/confirmbuysuccess";   //successful purchase
+                return "/confirmbuysuccess";
             } else {
-                return "/confirmbuyfailure";   //purchase failed: out of stock
+                return "/confirmbuyfailure";
             }
         } else {
-            return "/confirmbuyfailure";  //purchase failed: product not found
+            return "/confirmbuyfailure";
         }
     }
 }
