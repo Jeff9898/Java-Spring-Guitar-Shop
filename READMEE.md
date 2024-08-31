@@ -323,9 +323,9 @@ return true;
 
 Part I: Add at least two unit tests for the maximum and minimum fields to the PartTest class in the test package.
 ```html
-partTest.java
+PartTest.java
 Two unit tests are located at the bottom of the PartTest class. Both tests passed.
-Test > com.example.demo > domain > PartTest
+src > test > java > com > example > demo > domain   
 lines 160 - 176
 
 @Test
