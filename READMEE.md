@@ -267,8 +267,8 @@ lines 24 and 25
 <p><input type="text" path="minimum" th:field="*{minimum}" placeholder="Minimum Inventory" class="form-control mb-4 col-4"/></p>
 <p><input type="text" path="maximum" th:field="*{maximum}" placeholder="Maximum Inventory" class="form-control mb-4 col-4"/></p>
 ```
-Application Properties
-I renamed the file persistent storage is saved to jdbc:h2:file:~/spring-boot-h2-h2-db102
+Application Properties - line 6
+I renamed the file persistent storage is saved to spring.datasource.url=jdbc:h2:file:~/Jeff's-Guitars-h2-db102
 
 ```html
 part.java
@@ -324,7 +324,10 @@ return true;
 Part I: Add at least two unit tests for the maximum and minimum fields to the PartTest class in the test package.
 ```html
 partTest.java
+Two unit tests are located at the bottom of the PartTest class. Both tests passed.
+Test > com.example.demo > domain > PartTest
 lines 160 - 176
+
 @Test
 public void testMinimumInventory() {
 int min_inv=1;
