@@ -352,6 +352,7 @@ Part J: Remove the class files for any unused validators in order to clean your 
 I deleted the DeletePartValidator as intelliJ informed there were no usages for it.
 
 
+
 Revisions:
 Added code to the AddProductController that will lead the user to a new html error page "InventoryError.html" if the associated parts inventory
 could be reduced below its minimum.
@@ -391,4 +392,28 @@ InventoryError.html
 <a href="http://localhost:8080/">Link
   to Main Screen</a>
 </html>
+```
+
+Changed my two unit tests in Part.java. These two tests are cleaner and more accurate.
+```html
+lines 162-180
+    @Test
+    public void testMinimumInventory() {
+        partIn.setMinimum(5);
+        partIn.setInv(4);
+        assertFalse(partIn.isInvValid());
+
+        partIn.setInv(5);
+        assertTrue(partIn.isInvValid());
+    }
+
+    @Test
+    public void testMaximumInventory() {
+        partOut.setMaximum(10);
+        partOut.setInv(11);
+        assertFalse(partOut.isInvValid());
+
+        partOut.setInv(10);
+        assertTrue(partOut.isInvValid());
+    }
 ```

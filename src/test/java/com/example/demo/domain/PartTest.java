@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -159,20 +161,22 @@ class PartTest {
 
     @Test
     public void testMinimumInventory() {
-        int min_inv=1;
-        partIn.setInv(min_inv);
-        assertEquals(min_inv,partIn.getInv());
-        partOut.setInv(min_inv);
-        assertEquals(min_inv,partOut.getInv());
+        partIn.setMinimum(5);
+        partIn.setInv(4);
+        assertFalse(partIn.isInvValid());
+
+        partIn.setInv(5);
+        assertTrue(partIn.isInvValid());
     }
 
     @Test
     public void testMaximumInventory() {
-        int max_inv=101;
-        partIn.setInv(max_inv);
-        assertEquals(max_inv,partIn.getInv());
-        partOut.setInv(max_inv);
-        assertEquals(max_inv,partOut.getInv());
+        partOut.setMaximum(10);
+        partOut.setInv(11);
+        assertFalse(partOut.isInvValid());
+
+        partOut.setInv(10);
+        assertTrue(partOut.isInvValid());
     }
 }
 
