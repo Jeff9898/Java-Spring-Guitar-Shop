@@ -77,10 +77,20 @@ public class AddProductController {
             if(product.getId()!=0) {
                 Product product2 = repo.findById((int) product.getId());
                 PartService partService1 = context.getBean(PartServiceImpl.class);
-                if(product.getInv()- product2.getInv()>0) {
+
+                int inventoryDifference = product.getInv() - product2.getInv();
+                if (inventoryDifference > 0) {
                     for (Part p : product2.getParts()) {
-                        int inv = p.getInv();
-                        p.setInv(inv - (product.getInv() - product2.getInv()));
+                        int newInventory = p.getInv() - inventoryDifference;
+
+
+                        if (newInventory < 0) {
+
+                            theModel.addAttribute("inventoryError", "Reducing inventory would result in a negative inventory value for part: " + p.getName());
+                            return "InventoryError";
+                        }
+
+                        p.setInv(newInventory);
                         partService1.save(p);
                     }
                 }

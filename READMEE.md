@@ -350,3 +350,45 @@ assertEquals(max_inv,partOut.getInv());
 Part J: Remove the class files for any unused validators in order to clean your code.
 
 I deleted the DeletePartValidator as intelliJ informed there were no usages for it.
+
+
+Revisions:
+Added code to the AddProductController that will lead the user to a new html error page "InventoryError.html" if the associated parts inventory
+could be reduced below its minimum.
+
+```html
+AddProductController lines 81-95
+                int inventoryDifference = product.getInv() - product2.getInv();
+                if (inventoryDifference > 0) {
+                    for (Part p : product2.getParts()) {
+                        int newInventory = p.getInv() - inventoryDifference;
+
+
+                        if (newInventory < 0) {
+
+                            theModel.addAttribute("inventoryError", "Reducing inventory would result in a negative inventory value for part: " + p.getName());
+                            return "InventoryError";
+                        }
+
+                        p.setInv(newInventory);
+                        partService1.save(p);
+                    }
+```
+  
+InventoryError.html
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventory Error</title>
+</head>
+<body>
+<h1>Inventory Error</h1>
+<p>There was an issue with your request.</p>
+<p>Please review the inventory levels of the parts and adjust your request accordingly.</p>
+</body>
+<a href="http://localhost:8080/">Link
+  to Main Screen</a>
+</html>
+```
