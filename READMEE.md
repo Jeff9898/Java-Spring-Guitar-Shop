@@ -3,6 +3,7 @@ WGU D287 Java Frameworks PA - Jeff Starr
 NOTE: The current code in this project was all done on the branch "working-version2". The other branches are from a previous attempt until I decided to restart the project due to bugs/errors.
 I prefer to keep the code in case I want to look back at it.
 
+
 Part C: Customize the HTML user interface for your customer’s application. The user interface should include   
 the shop name, the product names, and the names of the parts.
 
@@ -358,43 +359,26 @@ Added code to the AddProductController that will lead the user to a new html err
 could be reduced below its minimum.
 
 ```html
-AddProductController lines 81-95
-                int inventoryDifference = product.getInv() - product2.getInv();
-                if (inventoryDifference > 0) {
-                    for (Part p : product2.getParts()) {
-                        int newInventory = p.getInv() - inventoryDifference;
+enufPartsValidator - added new logic to handle associated parts correctly
+Lines 35 - 48
+if (product.getId() != 0) {
+Product myProduct = repo.findById((int) product.getId());
+int inventoryChange = product.getInv() - myProduct.getInv();
+
+for (Part p : myProduct.getParts()) {
+int inventoryMargin = p.getInv() - p.getMinimum();
+
+if (inventoryChange > inventoryMargin) {
+return false;
+}
+}
+return true;
+} else {
+return true;
 
 
-                        if (newInventory < 0) {
 
-                            theModel.addAttribute("inventoryError", "Reducing inventory would result in a negative inventory value for part: " + p.getName());
-                            return "InventoryError";
-                        }
-
-                        p.setInv(newInventory);
-                        partService1.save(p);
-                    }
-```
-  
-InventoryError.html
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Inventory Error</title>
-</head>
-<body>
-<h1>Inventory Error</h1>
-<p>There was an issue with your request.</p>
-<p>Please review the inventory levels of the parts and adjust your request accordingly.</p>
-</body>
-<a href="http://localhost:8080/">Link
-  to Main Screen</a>
-</html>
-```
-
-Changed my two unit tests in Part.java. These two tests are cleaner and more accurate.
+Changed my two unit tests in PartTest.java. These two tests are cleaner and more accurate.
 ```html
 lines 162-180
     @Test
