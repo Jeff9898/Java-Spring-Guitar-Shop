@@ -1,21 +1,24 @@
 package com.example.demo.domain;
 
 import com.example.demo.validators.ValidDeletePart;
+import com.example.demo.validators.ValidPartInventoryMaximum;
+import com.example.demo.validators.ValidPartInventoryMinimum;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- *
- *
- *
- *
- */
+
+
+
+
 @Entity
 @ValidDeletePart
+@ValidPartInventoryMaximum
+@ValidPartInventoryMinimum
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="part_type",discriminatorType = DiscriminatorType.INTEGER)
 @Table(name="Parts")
@@ -27,10 +30,12 @@ public abstract class Part implements Serializable {
     @Min(value = 0, message = "Price value must be positive")
     double price;
     @Min(value = 0, message = "Inventory value must be positive")
+    @Max(value = 100, message = "Inventory cannot exceed 100")
     int inv;
 
-    @Min (value = 0, message = "Minimum inventory must be > 0")
+    @Min (value = 0, message = "Minimum inventory must be positive")
     int minimum;
+    @Max(value = 100, message = "Maximum inventory cannot exceed 100")
     int maximum;
 
     @ManyToMany
@@ -129,5 +134,13 @@ public abstract class Part implements Serializable {
     @Override
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
+    }
+
+    public void validateLimits() {
+        if (this.inv < this.minimum) {
+            this.inv = this.minimum;
+        } else if (this.inv > this.maximum ) {
+            this.inv = this.maximum;
+        }
     }
 }

@@ -134,11 +134,11 @@ public class BootStrapData implements CommandLineRunner {
 
             if (productRepository.count() == 0) {
 
-                Product electricGuitar = new Product("Electric Guitar", 199.99, 28);
-                Product acousticGuitar = new Product("Acoustic Guitar", 159.99, 18);
-                Product miniGuitar = new Product("Mini Guitar", 99.99, 8);
-                Product bassGuitar = new Product("Bass Guitar", 149.99, 5);
-                Product jazzGuitar = new Product("Jazz Guitar", 179.99, 7);
+                Product electricGuitar = new Product(6, "Electric Guitar", 199.99, 28);
+                Product acousticGuitar = new Product(7, "Acoustic Guitar", 159.99, 18);
+                Product miniGuitar = new Product(8, "Mini Guitar", 99.99, 8);
+                Product bassGuitar = new Product(9, "Bass Guitar", 149.99, 5);
+                Product jazzGuitar = new Product(10, "Jazz Guitar", 179.99, 7);
 
                 productRepository.save(electricGuitar);
                 productRepository.save(acousticGuitar);

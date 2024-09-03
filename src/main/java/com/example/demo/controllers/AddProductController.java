@@ -54,12 +54,7 @@ public class AddProductController {
 
         if(bindingResult.hasErrors()){
             ProductService productService = context.getBean(ProductServiceImpl.class);
-            Product product2 = new Product();
-            try {
-                product2 = productService.findById((int) product.getId());
-            } catch (Exception e) {
-                System.out.println("Error Message " + e.getMessage());
-            }
+            Product product2=productService.findById((int)product.getId());
             theModel.addAttribute("parts", partService.findAll());
             List<Part>availParts=new ArrayList<>();
             for(Part p: partService.findAll()){
@@ -69,28 +64,18 @@ public class AddProductController {
             theModel.addAttribute("assparts",product2.getParts());
             return "productForm";
         }
- //       theModel.addAttribute("assparts", assparts);
- //       this.product=product;
+        //       theModel.addAttribute("assparts", assparts);
+        //       this.product=product;
 //        product.getParts().addAll(assparts);
         else {
             ProductService repo = context.getBean(ProductServiceImpl.class);
             if(product.getId()!=0) {
                 Product product2 = repo.findById((int) product.getId());
                 PartService partService1 = context.getBean(PartServiceImpl.class);
-
-                int inventoryDifference = product.getInv() - product2.getInv();
-                if (inventoryDifference > 0) {
+                if(product.getInv()- product2.getInv()>0) {
                     for (Part p : product2.getParts()) {
-                        int newInventory = p.getInv() - inventoryDifference;
-
-
-                        if (newInventory < 0) {
-
-                            theModel.addAttribute("inventoryError", "Reducing inventory would result in a negative inventory value for part: " + p.getName());
-                            return "InventoryError";
-                        }
-
-                        p.setInv(newInventory);
+                        int inv = p.getInv();
+                        p.setInv(inv - (product.getInv() - product2.getInv()));
                         partService1.save(p);
                     }
                 }

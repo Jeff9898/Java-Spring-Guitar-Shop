@@ -17,5 +17,4 @@ public interface ProductService {
     public void save (Product theProduct);
     public void deleteById(int theId);
     public List<Product> listAll(String keyword);
-
 }
