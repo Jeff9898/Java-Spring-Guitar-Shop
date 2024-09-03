@@ -355,8 +355,7 @@ I deleted the DeletePartValidator as intelliJ informed there were no usages for 
 
 
 Revisions:
-Added code to the AddProductController that will lead the user to a new html error page "InventoryError.html" if the associated parts inventory
-could be reduced below its minimum.
+
 
 ```html
 enufPartsValidator - added new logic to handle associated parts correctly
