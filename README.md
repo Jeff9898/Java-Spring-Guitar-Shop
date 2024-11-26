@@ -1,9 +1,5 @@
 WGU D287 Java Frameworks PA - Jeff Starr
 
-NOTE: The current code in this project was all done on the branch "working-version2". The other branches are from a previous attempt until I decided to restart the project due to bugs/errors.
-I prefer to keep the code in case I want to look back at it.
-
-
 Part C: Customize the HTML user interface for your customer’s application. The user interface should include   
 the shop name, the product names, and the names of the parts.
 
